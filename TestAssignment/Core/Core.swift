@@ -9,12 +9,12 @@ import UIKit
 
 
 class Core {
-    private var factory: Factory
-    private var router: Routerable
+    private var factory: Factory!
+    private var router: Routerable!
     
     init() {
-        self.factory = Factory()
-        self.router = Router(factory: factory)
+        self.router = Router(delegate: self)
+        self.factory = Factory(router: self.router)
     }
     
     func scene(_ scene: UIScene,
@@ -22,5 +22,12 @@ class Core {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         router.renderRootController(scene: windowScene)
+    }
+}
+
+
+extension Core: RouterDelegate {
+    func create(viewController: ViewControllerType) -> UIViewController {
+        factory.create(viewController: viewController)
     }
 }

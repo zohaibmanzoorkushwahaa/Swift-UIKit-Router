@@ -19,4 +19,5 @@ struct FactoryElement {
 //MARK: - ViewController
 enum ViewControllerType {
     case root
+    case appload
 }

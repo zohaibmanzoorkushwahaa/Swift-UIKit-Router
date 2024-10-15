@@ -8,10 +8,10 @@ import UIKit
 
 class Router {
     private var window: UIWindow!
-    private weak var factory: FactoryDelegate!
+    private weak var delegate: RouterDelegate!
     
-    init(factory: FactoryDelegate) {
-        self.factory = factory
+    init(delegate: RouterDelegate) {
+        self.delegate = delegate
     }
 }
 
@@ -20,7 +20,9 @@ class Router {
 extension Router: Routerable {
     func renderRootController(scene: UIWindowScene) {
         self.window = UIWindow(windowScene: scene)
-        self.window.rootViewController = factory.create(viewController: .root)
+        self.window.rootViewController = delegate.create(viewController: .appload)
         self.window.makeKeyAndVisible()
     }
+    
+//    func route(to)
 }

@@ -8,7 +8,11 @@
 import UIKit
 
 class Factory {
+    private weak var router: Routerable!
     
+    init(router: Routerable) {
+        self.router = router
+    }
 }
 
 extension Factory: FactoryDelegate {
@@ -16,6 +20,8 @@ extension Factory: FactoryDelegate {
         switch viewController {
         case .root:
             return RootViewController()
+        case .appload: 
+            return AppLoadingViewController(router: router)
         }
     }
 }

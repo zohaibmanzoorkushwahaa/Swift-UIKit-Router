@@ -7,16 +7,26 @@
 
 import UIKit
 
+protocol CoreDelegate: AnyObject {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions)
+}
+
 
 class Core {
     private var factory: Factory!
-    private var router: Routerable!
+    private var router: CoreRoutable!
     
     init() {
         self.router = Router(delegate: self)
         self.factory = Factory(router: self.router)
     }
-    
+}
+
+
+//MARK: - CoreDelegate
+extension Core: CoreDelegate {
     func scene(_ scene: UIScene,
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -25,7 +35,7 @@ class Core {
     }
 }
 
-
+//MARK: - RouterDelegate
 extension Core: RouterDelegate {
     func create(viewController: ViewControllerType) -> UIViewController {
         factory.create(viewController: viewController)

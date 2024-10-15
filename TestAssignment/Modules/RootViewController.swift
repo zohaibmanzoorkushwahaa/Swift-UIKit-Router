@@ -7,23 +7,27 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+class RootViewModel {
+    weak var router: Routerable!
+    
+    init(router: Routerable) {
+        self.router = router
+    }
+}
 
+class RootViewController: UIViewController, Storyboardable {
+
+    
+    var vm: RootViewModel?
+    
+    @IBAction func didHomeTapped(_ sender: UIButton) {
+        vm?.router.navigate(path: .push(type: .home))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = .red
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

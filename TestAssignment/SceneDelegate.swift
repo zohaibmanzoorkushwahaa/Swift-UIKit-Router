@@ -9,7 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
-    private lazy var core = Core()
+    private lazy var core: CoreDelegate = Core()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         core.scene(scene, willConnectTo: session, options: connectionOptions)

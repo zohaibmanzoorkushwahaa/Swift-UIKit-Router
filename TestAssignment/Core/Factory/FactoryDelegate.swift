@@ -20,4 +20,5 @@ struct FactoryElement {
 enum ViewControllerType {
     case root
     case appload
+    case home
 }

@@ -7,21 +7,18 @@
 
 import UIKit
 
-class AppLoadingViewController: UIViewController {
-    
-    private weak var router: Routerable!
+class AppLoadingViewModel {
+    weak var router: Routerable!
     
     init(router: Routerable) {
-        super.init(nibName: nil, bundle: nil)
         self.router = router
     }
+}
+
+class AppLoadingViewController: UIViewController, Storyboardable {
     
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+    var vm: AppLoadingViewModel?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -36,8 +33,8 @@ extension AppLoadingViewController {
         self.view.backgroundColor = .white
         view.addSubview(createActivityIndicator())
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            debugPrint(self.router)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+            self?.vm?.router.navigate(path: .setRoot(type: .root))
         })
     }
     

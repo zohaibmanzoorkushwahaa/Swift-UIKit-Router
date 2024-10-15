@@ -19,9 +19,17 @@ extension Factory: FactoryDelegate {
     func create(viewController: ViewControllerType) -> UIViewController {
         switch viewController {
         case .root:
-            return RootViewController()
-        case .appload: 
-            return AppLoadingViewController(router: router)
+            let vc = RootViewController.instansiateFromStoryboard(name: .main)
+            vc.vm = RootViewModel(router: router)
+            return vc
+        case .appload:
+            let vc = AppLoadingViewController.instansiateFromStoryboard(name: .splash)
+            vc.vm = AppLoadingViewModel(router: router)
+            return vc
+        case .home:
+            let vc = HomeViewController.instansiateFromStoryboard(name: .home)
+            vc.vm = HomeViewModel(router: router)
+            return vc
         }
     }
 }
